@@ -5,7 +5,7 @@
 <img src="src/resource/goods.jpg" width="40%"/>&nbsp;&nbsp;&nbsp;&nbsp;<img src="src/resource/detailInfo.jpg" width="40%"/>
 
 ## 涉及技术
-> vue2.0、vue-cli、vue-router、webpack、eslint、better-scroll、数据Mock
+> vue.js、vue-cli、vue-router、webpack、eslint、better-scroll、数据Mock
 ## 组件
 
 * 购物车

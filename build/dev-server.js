@@ -1,6 +1,4 @@
-console.log('111')
 var path = require('path')
-console.log(222)
 var express = require('express')
 var webpack = require('webpack')
 var config = require('../config')

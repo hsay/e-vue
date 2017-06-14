@@ -29,16 +29,22 @@
                   <span class="new">{{food.price}}</span>
                   <span class="old" v-show="food.oldPrice">{{food.oldPrice}}</span>
                 </div>
+                <div class="cart-wrapper">
+                  <cartcontrol :food="food"></cartcontrol>
+                </div>
               </div>
             </li>
           </ul>
         </li>
       </ul>
     </div>
+    <shopcart :select-foods="selectFoods" :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice"></shopcart>
   </div>
 </template>
 <script type="text/ecmascript-6">
   import BScroll from 'better-scroll';
+  import shopcart from '../shopcart/shopcart';
+  import cartcontrol from '../cartcontrol/cartcontrol';
   const ERROR_OK = 0;
   export default {
     props: ['seller'],
@@ -49,8 +55,11 @@
        scrollY: 0
      };
     },
+    components: {
+      shopcart,
+      cartcontrol
+    },
     created() {
-      console.log(this);
       this.classMap = ['decrease', 'discount', 'invoice', 'guarantee', 'special'];
       this.$http.get('/api/goods').then((response) => {
         response = response.body;
@@ -76,6 +85,18 @@
             }
          }
          return 0;
+      },
+      selectFoods () {
+        let foods = [];
+        this.goods.forEach((good) => {
+          good.foods.forEach((food) => {
+            if (food.count) {
+              console.log(food.count);
+              foods.push(food);
+            }
+          });
+        });
+        return foods;
       }
     },
     methods: {
@@ -84,6 +105,7 @@
             click: true
         });
         this.goodScroll = new BScroll(this.$els.goodWrapper, {
+          click: true,
           probeType: 3
         });
         this.goodScroll.on('scroll', (pos) => {
@@ -200,4 +222,8 @@
             .old
               text-decoration:line-through;
               font-size:10px;
+          .cart-wrapper
+            position:absolute;
+            right:0;
+            bottom:8px;
 </style>
